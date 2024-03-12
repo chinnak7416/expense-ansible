@@ -1,0 +1,8 @@
+- name: Frontend Setup
+  hosts: all
+  became: yes
+  tasks:
+    - name: Install the latest version of Nginx
+      ansible.builtin.dnf:
+       - name: nginx
+         state: latest
