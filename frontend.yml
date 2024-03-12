@@ -2,7 +2,7 @@
   hosts: all
   become: yes
   tasks:
-    - name: Install the latest version of Nginx
+    - name: Install the latest version of nginx
       ansible.builtin.dnf:
-       - name: nginx
-         state: latest
+        name: nginx
+        state: latest
