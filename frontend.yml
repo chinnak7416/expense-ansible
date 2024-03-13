@@ -25,7 +25,7 @@
     - name:  download & extract  app content
       ansible.builtin.unarchive:
         src: https://expense-artifacts.s3.amazonaws.com/expense-frontend-v2.zip
-        dest: /usr/share/nginx/html
+        dest: /tmp/frontend
         remote_src: yes
 
     - name:  Start Nginx
@@ -44,11 +44,3 @@
 
 
 
-#  print_task_heading "download app content"
-#  curl -o /tmp/${component}.zip https://expense-artifacts.s3.amazonaws.com/expense-${component}-v2.zip &>>$LOG
-#  check_status $?
-#
-#  print_task_heading "extract app content"
-#  cd ${app_dir} &>>$LOG
-#  unzip /tmp/${component} &>>$LOG
-#  check_status $?
