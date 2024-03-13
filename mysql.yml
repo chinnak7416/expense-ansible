@@ -12,7 +12,12 @@
         name: mysqld
         state: started
         enabled: true
-
+    - name: install Python-Mysql
+      ansible.builtin.pip:
+        name:
+          - PyMySQL
+          - cryptography
+        executable: pip3.9
 #    - name: Setup mysql password
 #      ansible.builtin.shell: mysql -h mysql-dev.ramdevops78.online -uroot -pExpenseApp@1
     - name: Setup mysql password
