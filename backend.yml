@@ -2,15 +2,17 @@
   hosts: all
   become: yes
   tasks:
-#    - name: disable default nodejs version
-#      community.general.dnf_config_manager:
-#        name: nodejs
-#        state: disabled
+    - name: disable default nodejs version
+      ansible.builtin.shell: dnf module disable nodejs
+
+    - name: enable nodejs
+      ansible.builtin.shell: dnf module enable nodejs:20
+
 
     - name: disable default nodejs version
       ansible.builtin.dnf:
          name: nodejs
-         state: absent
+         state: present
 
 
 
