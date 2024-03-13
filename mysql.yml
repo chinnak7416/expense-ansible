@@ -1,0 +1,28 @@
+- name: Mysql Setup
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install mysql-server
+      ansible.builtin.dnf:
+        name: mysql-server
+        state: latest
+
+    - name: start mysql service
+      ansible.builtin.systemd_service:
+        name: mysqld
+        state: started
+        enabled: true
+
+    - name: Set up mysql password
+      ansible.builtin.shell: mysql -h mysql-dev.ramdevops78.online -uroot -pExpenseApp@1
+
+
+
+
+
+
+
+
+
+
+

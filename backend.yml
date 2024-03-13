@@ -5,70 +5,65 @@
     - name: disable default nodejs version
       ansible.builtin.shell: dnf module disable nodejs -y
 
-    - name: enable nodejs
+    - name: enable nodejs version:20
       ansible.builtin.shell: dnf module enable nodejs -y
 
-
-    - name: disable default nodejs version
+    - name: install nodejs
       ansible.builtin.dnf:
          name: nodejs
-         state: present
+         state: latest
+
+    - name: adding application user
+      ansible.builtin.user:
+        name: expense
+
+    - name: clean the old content
+      ansible.builtin.file:
+        path: /app
+        state: absent
+
+    - name: create app directory
+      ansible.builtin.file:
+        path: /app
+        state: directory
+
+    - name: download & extract  app content
+      ansible.builtin.unarchive:
+        src: https://expense-artifacts.s3.amazonaws.com/expense-backend-v2.zip
+        dest: /app
+        remote_src: yes
+
+    - name: download nodejs dependencies
+      community.general.npm:
+        path: /app
+        state: latest
+
+    - name: copy backend service file
+      ansible.builtin.copy:
+        src: backend.service
+        dest: /etc/systemd/system/backend.service
+
+    - name: install Mysql client
+      ansible.builtin.dnf:
+        name: mysql
+        state: latest
+
+    - name: load schema
+      community.mysql.mysql_db:
+        state: import
+        name: all
+        target: /tmp/dump.sql
+        login_user: root
+        login_password: ExpenseApp@1
+        login_host: mysql-dev.ramdevops78.online
+
+    - name: start backend service
+      ansible.builtin.systemd_service:
+        name: backend
+        state: restarted
+        daemon_reload: true
+        enabled: true
 
 
 
 
-
-
-
-#  print_task_heading "disable default nodejs version"
-#  dnf module disable nodejs -y &>>$LOG
-#  check_status $?
-#
-#
-#  print_task_heading "enable nodejs version:20"
-#  dnf module enable nodejs:20 -y &>>$LOG
-#  check_status $?
-#
-#  print_task_heading "install nodejs"
-#  dnf install nodejs -y &>>$LOG
-#  check_status $?
-#
-#  print_task_heading "adding application user"
-#  id expense &>>$LOG
-#  if [ $? -ne 0 ]; then
-#  useradd expense &>>$LOG
-#  fi
-#  check_status $?
-#
-#  print_task_heading "copy backend service file"
-#  cp backend.service /etc/systemd/system/backend.service &>>$LOG
-#  check_status $?
-#
-#  Pre_req_app
-#
-#  print_task_heading "download nodjs dependencies"
-#  cd /app &>>$LOG
-#  npm install &>>$LOG
-#  check_status $?
-#
-#  print_task_heading "reload the service"
-#  systemctl daemon-reload &>>$LOG
-#  check_status $?
-#
-#  print_task_heading "start backend service"
-#  systemctl enable backend &>>$LOG
-#  systemctl start backend &>>$LOG
-#  check_status $?
-#
-#  print_task_heading "install mysql client"
-#  dnf install mysql -y &>>$LOG
-#  check_status $?
-#
-#  print_task_heading "load schema"
-#  mysql -h mysql-dev.ramdevops78.online -uroot -p${mysql_root_password} < /app/schema/backend.sql  &>>$LOG
-#  check_status $?
-#
-#  print_task_heading ""restart bckend""
-#  systemctl restart backend &>>$LOG
-#  check_status $?
-#
