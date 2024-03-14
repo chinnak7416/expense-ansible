@@ -54,7 +54,7 @@
       community.mysql.mysql_db:
         state: import
         name: all
-        target: /etc/systemd/system/backend.service
+        target: /app/schema/backend.sql
         login_user: root
         login_password: ExpenseApp@1
         login_host: mysql-dev.ramdevops78.online
