@@ -54,7 +54,6 @@
       community.mysql.mysql_db:
         state: import
         name: all
-        path: /app
         target: /app/schema/backend.sql
         login_user: root
         login_password: ExpenseApp@1
