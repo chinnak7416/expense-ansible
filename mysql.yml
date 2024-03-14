@@ -19,7 +19,7 @@
 #          - cryptography
 #        executable: pip3.9
     - name: Setup mysql password
-      ansible.builtin.shell: mysql -h mysql-dev.ramdevops78.online -uroot -pExpenseApp@1
+      ansible.builtin.shell: mysql_secure_installation --set-root-pass ExpenseApp@1
 #    - name: Setup mysql password
 #      community.mysql.mysql_db:
 #        check_implicit_admin: true
@@ -32,7 +32,7 @@
 
  # mysql_secure_installation --set-root-pass ExpenseApp@1
 
-
+#  mysql -h mysql-dev.ramdevops78.online -uroot -pExpenseApp@1
 
 
 
