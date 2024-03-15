@@ -15,6 +15,7 @@
 - name: load
   ansible.builtin.shell: echo 'show databases' | mysql -h mysql-dev.ramdevops78.online -uroot -pExpenseApp@1
   register: mysql_connection_OUTPUT
+  ignore_errors: yes
 - name: OUTPUT
   ansible.builtin.debug:
     msg: "{{ mysql_connection_OUTPUT }}"
@@ -25,9 +26,9 @@
 #          - PyMySQL
 #          - cryptography
 #        executable: pip3.9
-#- name: Setup mysql password
-#  ansible.builtin.shell: mysql_secure_installation --set-root-pass ExpenseApp@1
-#  when: mysql_connection_OUTPUT.failed is true
+- name: Setup mysql password
+  ansible.builtin.shell: mysql_secure_installation --set-root-pass ExpenseApp@1
+  when: mysql_connection_OUTPUT.rc == 0
 #    - name: Setup mysql password
 #      community.mysql.mysql_db:
 #        check_implicit_admin: true
