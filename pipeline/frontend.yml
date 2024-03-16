@@ -1,0 +1,85 @@
+format_version: 10
+pipelines:
+  frontend:
+    group: defaultGroup
+#    label_template: ${COUNT}
+#    lock_behavior: none
+#    display_order: -1
+    materials:
+      git-737bd8d:
+        git: https://github.com/chinnak7416/expense-ansible.git
+        shallow_clone: false
+        auto_update: true
+        branch: main
+    stages:
+    - DEV:
+        fetch_materials: true
+#         keep_artifacts: false
+#         clean_workspace: false
+        approval:
+          type: manual
+#           allow_only_on_success: false
+        jobs:
+          ansible-playbook:
+#             timeout: 0
+            tasks:
+              - exec:
+                  arguments:
+                    - ansible.sh
+                    - frontend
+                  command: bash # bash ansible.sh frontend
+                  run_if: passed
+
+    - QA:
+        fetch_materials: true
+        #         keep_artifacts: false
+        #         clean_workspace: false
+        approval:
+          type: manual
+        #           allow_only_on_success: false
+        jobs:
+          ansible-playbook:
+            #             timeout: 0
+            tasks:
+              - exec:
+                  arguments:
+                    - ansible.sh
+                    - frontend
+                  command: bash # bash ansible.sh frontend
+                  run_if: passed
+
+    - STAGE:
+        fetch_materials: true
+        #         keep_artifacts: false
+        #         clean_workspace: false
+        approval:
+          type: manual
+        #           allow_only_on_success: false
+        jobs:
+          ansible-playbook:
+            #             timeout: 0
+            tasks:
+              - exec:
+                  arguments:
+                    - ansible.sh
+                    - frontend
+                  command: bash # bash ansible.sh frontend
+                  run_if: passed
+
+    - PROD:
+        fetch_materials: true
+        #         keep_artifacts: false
+        #         clean_workspace: false
+        approval:
+          type: manual
+        #           allow_only_on_success: false
+        jobs:
+          ansible-playbook:
+            #             timeout: 0
+            tasks:
+              - exec:
+                  arguments:
+                    - ansible.sh
+                    - frontend
+                  command: bash # bash ansible.sh frontend
+                  run_if: passed
