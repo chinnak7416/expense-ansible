@@ -34,6 +34,8 @@ pipelines:
 
     - QA:
         fetch_materials: true
+        environment_variables:
+          env: qa
         #         keep_artifacts: false
         #         clean_workspace: false
         approval:
@@ -52,6 +54,8 @@ pipelines:
 
     - STAGE:
         fetch_materials: true
+        environment_variables:
+          env: stage
         #         keep_artifacts: false
         #         clean_workspace: false
         approval:
@@ -70,6 +74,8 @@ pipelines:
 
     - PROD:
         fetch_materials: true
+        environment_variables:
+          env: prod
         #         keep_artifacts: false
         #         clean_workspace: false
         approval:
