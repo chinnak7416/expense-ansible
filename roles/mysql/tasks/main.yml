@@ -26,17 +26,27 @@
   ansible.builtin.debug:
     msg: "{{ mysql_connection_OUTPUT }}"
 
+#- name: Setup mysql password
+#  ansible.builtin.shell: mysql_secure_installation --set-root-pass ExpenseApp@1
+#  when: mysql_connection_OUTPUT.rc == 0
+#- name: load schema
+#  community.mysql.mysql_db:
+#    state: import
+#    name: all
+#    target: /app/schema/backend.sql
+#    login_user: root
+#    login_password: ExpenseApp@1
+#    login_host: mysql-dev.ramdevops78.online
+
 - name: Setup mysql password
-  ansible.builtin.shell: mysql_secure_installation --set-root-pass ExpenseApp@1
-  when: mysql_connection_OUTPUT.rc == 0
-#    - name: Setup mysql password
-#      community.mysql.mysql_db:
-#        check_implicit_admin: true
-#        login_user: root
-#        login_password: ExpenseApp@1
-#        login_host: mysql-dev.ramdevops78.online
-#        name: mysqld
-#        state: present
+  community.mysql.mysql_db:
+    check_implicit_admin: true
+    login_user: root
+    login_password: ExpenseApp@1
+    login_host: mysql-dev.ramdevops78.online
+    name: mysqld
+    state: present
+    when: mysql_connection_OUTPUT.rc == 0
 
 
 # mysql_secure_installation --set-root-pass ExpenseApp@1
