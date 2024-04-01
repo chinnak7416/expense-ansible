@@ -9,8 +9,14 @@
     state: started
     enabled: yes
 
+#- name: install Python Mysql client
+#  ansible.builtin.shell: dnf install mysql -y
 - name: install Python Mysql client
-  ansible.builtin.shell: dnf install mysql -y
+  ansible.builtin.pip:
+    name:
+      - PyMySQL
+      - cryptography
+    executable: pip3.9
 
 - name: load
   ansible.builtin.shell: echo 'show databases' | mysql -h mysql-dev.ramdevops78.online -uroot -pExpenseApp@1
@@ -20,12 +26,6 @@
   ansible.builtin.debug:
     msg: "{{ mysql_connection_OUTPUT }}"
 
-#    - name: install Python-Mysql
-#      ansible.builtin.pip:
-#        name:
-#          - PyMySQL
-#          - cryptography
-#        executable: pip3.9
 - name: Setup mysql password
   ansible.builtin.shell: mysql_secure_installation --set-root-pass ExpenseApp@1
   when: mysql_connection_OUTPUT.rc == 0
