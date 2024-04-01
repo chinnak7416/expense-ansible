@@ -35,7 +35,7 @@
     name:
       - PyMySQL
       - cryptography
-    executable: pip3.9
+    executable: pip3.11
 
 
 - name: Install MySQL Client
