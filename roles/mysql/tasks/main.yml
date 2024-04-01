@@ -16,7 +16,7 @@
     name:
       - PyMySQL
       - cryptography
-    executable: pip3.11
+    executable: pip3.9
 
 - name: load
   ansible.builtin.shell: echo 'show databases' | mysql -h mysql-dev.ramdevops78.online -uroot -pExpenseApp@1
@@ -46,7 +46,6 @@
     login_host: mysql-dev.ramdevops78.online
     name: mysqld
     state: present
-    when: mysql_connection_OUTPUT.rc == 0
 
 
 # mysql_secure_installation --set-root-pass ExpenseApp@1
