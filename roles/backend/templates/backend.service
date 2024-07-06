@@ -4,7 +4,9 @@ Description = Backend Service
 [Service]
 User={{ app_user }}
 Environment=DB_HOST="mysql-{{env}}.ramdevops78.online"
-ExecStart=/bin/node /app/index.js
+Environment=NEW_RELIC_APP_NAME=Backend
+Environment=NEW_RELIC_LICENSE_KEY={{NEW_RELIC_KEY}}
+ExecStart=/bin/node -r newrelic /app/index.js
 SyslogIdentifier=backend
 
 [Install]
