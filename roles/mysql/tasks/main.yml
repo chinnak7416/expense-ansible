@@ -16,7 +16,7 @@
     name:
       - PyMySQL
       - cryptography
-    executable: pip3.11
+    executable: pip3.9
 
 #- name: Checking For Password
 #  ansible.builtin.shell: echo 'show databases' | mysql -h mysql-{{env}}.ramdevops78.online -uroot -p{{mysql_root_password}}
