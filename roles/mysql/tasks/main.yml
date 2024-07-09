@@ -18,27 +18,27 @@
       - cryptography
     executable: pip3.11
 
-- name: Checking For Password
-  ansible.builtin.shell: echo 'show databases' | mysql -h mysql-{{env}}.ramdevops78.online -uroot -p{{mysql_root_password}}
-  register: mysql_connection_OUTPUT
-  ignore_errors: yes
-
-- name: Setup mysql password
-  ansible.builtin.shell: mysql_secure_installation --set-root-pass {{mysql_root_password}}
-  when: mysql_connection_OUTPUT.rc == 1
-
-#
-#- name: check the db connection  with our password
-#  community.mysql.mysql_info:
-#    check_implicit_admin: true
-#    login_user: root
-#    login_password: {{mysql_root_password}}
-#    login_host: mysql-{{env}}.ramdevops78.online
-#    filter: version
-#  register: mysql_connection_output
+#- name: Checking For Password
+#  ansible.builtin.shell: echo 'show databases' | mysql -h mysql-{{env}}.ramdevops78.online -uroot -p{{mysql_root_password}}
+#  register: mysql_connection_OUTPUT
 #  ignore_errors: yes
 #
 #- name: Setup mysql password
 #  ansible.builtin.shell: mysql_secure_installation --set-root-pass {{mysql_root_password}}
-#  when: mysql_connection_output.failed is true
+#  when: mysql_connection_OUTPUT.rc == 1
+
+
+- name: check the db connection  with our password
+  community.mysql.mysql_info:
+    check_implicit_admin: true
+    login_user: root
+    login_password: "{{mysql_root_password}}"
+    login_host: mysql-{{env}}.ramdevops78.online
+    filter: version
+  register: mysql_connection_output
+  ignore_errors: yes
+
+- name: Setup mysql password
+  ansible.builtin.shell: mysql_secure_installation --set-root-pass {{mysql_root_password}}
+  when: mysql_connection_output.failed is true
 
