@@ -32,7 +32,7 @@
   community.mysql.mysql_info:
     check_implicit_admin: true
     login_user: root
-    login_password: "{{mysql_root_password}}"
+    login_password: {{mysql_root_password}}
     login_host: mysql-{{env}}.ramdevops78.online
     filter: version
   register: mysql_connection_output

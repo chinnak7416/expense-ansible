@@ -50,7 +50,7 @@
     name: all
     target: /app/schema/backend.sql
     login_user: root
-    login_password: "{{mysql_root_password}}"
+    login_password: {{mysql_root_password}}
     login_host: mysql-{{env}}.ramdevops78.online
 
 - name: Import NewRelic Nodejs setup
