@@ -9,3 +9,4 @@
 - name: Install Logstash
   ansible.builtin.import_role:
     name: logstash
+  when: logstash_config_needed
