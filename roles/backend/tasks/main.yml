@@ -41,17 +41,17 @@
     name: mysql
     state: installed
 
-#- name: load schema
-#  ansible.builtin.shell: mysql -h mysql-dev.ramdevops78.online -uroot -pExpenseApp@1 < /app/schema/backend.sql
-
 - name: load schema
-  community.mysql.mysql_db:
-    state: import
-    name: all
-    target: /app/schema/backend.sql
-    login_user: root
-    login_password: "{{mysql_root_password}}"
-    login_host: mysql-{{env}}.ramdevops78.online
+  ansible.builtin.shell: mysql -h mysql-{{env}}.ramdevops78.online -uroot -p{{mysql_root_password}} < /app/schema/backend.sql
+
+#- name: load schema
+#  community.mysql.mysql_db:
+#    state: import
+#    name: all
+#    target: /app/schema/backend.sql
+#    login_user: root
+#    login_password: "{{mysql_root_password}}"
+#    login_host: mysql-{{env}}.ramdevops78.online
 
 - name: Import NewRelic Nodejs setup
   ansible.builtin.import_role:
