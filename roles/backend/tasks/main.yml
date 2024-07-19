@@ -42,7 +42,7 @@
     state: installed
 
 - name: load schema
-  ansible.builtin.shell: mysql -h mysql-{{env}}.ramdevops78.online -uroot -p{{mysql_root_password}} < /app/schema/backend.sql
+  ansible.builtin.shell: mysql -h {{rds_endpoint}} -u{{rds_username}} -p{{rds_password}} < /app/schema/backend.sql
 
 #- name: load schema
 #  community.mysql.mysql_db:
