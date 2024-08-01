@@ -1,6 +1,6 @@
 format_version: 10
 pipelines:
-  backend:
+  expense-backend:
     group: defaultGroup
     label_template: "${env:APP_VERSION}"
     #    lock_behavior: none
