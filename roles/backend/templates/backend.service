@@ -2,11 +2,11 @@
 Description = Backend Service
 
 [Service]
-User=expense
+User={{ app_user }}
 WorkingDirectory=/app
 Environment=DB_HOST="{{ rds_endpoint }}"
 Environment=NEW_RELIC_APP_NAME=Backend
-Environment=NEW_RELIC_LICENSE_KEY=78ab3b4138fcc92ebadf89d982b2521bFFFFNRAL
+Environment=NEW_RELIC_LICENSE_KEY={{ NEWRELIC_KEY }}
 ExecStart=/bin/node -r newrelic /app/index.js
 SyslogIdentifier=backend
 
