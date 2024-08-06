@@ -48,7 +48,7 @@
 
 - name: User Add caddy
   ansible.builtin.user:
-    name: "{{ app_user }}"
+    name: "{{app_user}}"
 
 - name: Import app pre requisites
   ansible.builtin.import_role:
