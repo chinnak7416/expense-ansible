@@ -42,25 +42,25 @@
 
 - name: Install Caddy
   ansible.builtin.get_url:
-    url: https://caddyserver.com/api/download?os=linux&arch=arm64
+    url: https://caddyserver.com/api/download?os=linux&arch=amd64
     dest: /bin/caddy
     mode: '0755'
 
-- name: User Add caddy
+- name: Add App User
   ansible.builtin.user:
     name: "{{app_user}}"
 
-- name: Import app pre requisites
+- name: Import App Pre Requisites
   ansible.builtin.import_role:
     name: common
     tasks_from: app-pre-req
 
-- name: Copy Caddy Configuration file
+- name: Copy Caddy configuration file
   ansible.builtin.template:
     src: Caddyfile
     dest: "{{app_loc}}/Caddyfile"
 
-- name: Copy Caddy Service file
+- name: Copy Caddy service file
   ansible.builtin.template:
     src: caddy.service
     dest: /etc/systemd/system/caddy.service
