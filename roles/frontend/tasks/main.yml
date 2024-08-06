@@ -58,7 +58,7 @@
 - name: Copy Caddy Configuration file
   ansible.builtin.template:
     src: Caddyfile
-    dest: "{{ app_loc }}/Caddyfile"
+    dest: "{{app_loc}}/Caddyfile"
 
 - name: Copy Caddy Service file
   ansible.builtin.template:
