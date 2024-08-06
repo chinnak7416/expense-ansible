@@ -5,7 +5,7 @@
     }
 }
 
-:80 {
+http:// {
   root * /app
   file_server
   handle_path /api/* {
