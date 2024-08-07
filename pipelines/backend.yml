@@ -12,7 +12,7 @@ pipelines:
         auto_update: true
         branch: main
     secure_variables:
-      vault_token: "AES:ygJYZCYQl2/+ct0sz1iW0w==:xIVBUeUEwQmqvq2zQNIsdFXXCB6tGiE4J8bJdp7mjms="
+      vault_token: AES:ygJYZCYQl2/+ct0sz1iW0w==:xIVBUeUEwQmqvq2zQNIsdFXXCB6tGiE4J8bJdp7mjms=
     environment_variables:
       APP_VERSION: ""
     stages:
